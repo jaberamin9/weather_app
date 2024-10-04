@@ -4,7 +4,6 @@ import 'package:weather_app/components/horizontal_card.dart';
 import 'package:weather_app/components/vertical_card.dart';
 import 'package:weather_app/controllers/next_day_controller.dart';
 import 'package:weather_app/utils/convert_epoch_to_date.dart';
-import 'package:weather_app/utils/convert_epoch_to_time.dart';
 import '../models/weather_model.dart';
 import '../utils/current_weather_info.dart';
 
@@ -37,23 +36,18 @@ class WeatherInfo extends ConsumerWidget {
                   color: Colors.white),
             ),
             const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () => {},
-              child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Current Location',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    )
-                  ]),
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Icon(
+                Icons.location_on,
+                color: Colors.white,
+                size: 16,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                weather.country ?? 'Current Location',
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+              )
+            ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

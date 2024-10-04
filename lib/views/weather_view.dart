@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weather_app/controllers/toggle_search_box_controller.dart';
 import 'package:weather_app/views/weather_info.dart';
 import '../controllers/weather_controller.dart';
 
@@ -12,6 +13,7 @@ class WeatherView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherState = ref.watch(weatherProvider);
+    final isVisibleSearchBox = ref.watch(toggleSearchBoxProvider);
 
     if (!isWeatherFetched) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -42,54 +44,81 @@ class WeatherView extends ConsumerWidget {
               Container(
                   alignment: Alignment.centerRight,
                   width: double.maxFinite,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: TextField(
-                            controller: searchValue,
-                            decoration: InputDecoration(
-                              hintText: 'Enter city name',
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  // Border color when focused
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.white,
-                                  // Border color when focused
-                                  width: 1.0,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
-                        IconButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: !isVisibleSearchBox
+                      ? IconButton(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           onPressed: () {
                             ref
-                                .read(weatherProvider.notifier)
-                                .fetchWeather(searchValue.text);
-                            searchValue.clear();
+                                .read(toggleSearchBoxProvider.notifier)
+                                .toggleSearchBox();
                           },
                           icon: const Icon(Icons.search),
-                          color: Colors.black,
+                          color: Colors.white,
                         )
-                      ],
-                    ),
-                  )),
+                      : Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: TextField(
+                                  controller: searchValue,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter city name',
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.white,
+                                        // Border color when focused
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: const BorderSide(
+                                        color: Colors.white,
+                                        // Border color when focused
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )),
+                              IconButton(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                onPressed: () {
+                                  ref
+                                      .read(weatherProvider.notifier)
+                                      .fetchWeather(searchValue.text);
+                                  ref
+                                      .read(toggleSearchBoxProvider.notifier)
+                                      .toggleSearchBox();
+                                  searchValue.clear();
+                                },
+                                icon: const Icon(Icons.search),
+                                color: Colors.black,
+                              ),
+                              IconButton(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                onPressed: () {
+                                  ref
+                                      .read(toggleSearchBoxProvider.notifier)
+                                      .toggleSearchBox();
+                                  searchValue.clear();
+                                },
+                                icon: const Icon(Icons.close),
+                                color: Colors.black,
+                              )
+                            ],
+                          ),
+                        )),
               weatherState.when(
                 data: (weather) => WeatherInfo(weather: weather),
                 loading: () =>

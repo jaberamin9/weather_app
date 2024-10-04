@@ -18,59 +18,26 @@ class WeatherAdapter extends TypeAdapter<Weather> {
     };
     return Weather(
       name: fields[0] as String?,
-      conditionText: fields[1] as String?,
-      temperature: fields[2] as double?,
-      windDegree: fields[3] as int?,
-      windDir: fields[4] as String?,
-      windMph: fields[5] as double?,
-      windKph: fields[6] as double?,
-      humidity: fields[7] as int?,
-      pressureIn: fields[8] as double?,
-      pressureMb: fields[9] as double?,
-      visibilityKm: fields[10] as double?,
-      visibilityMiles: fields[11] as double?,
-      conditionIcon: fields[12] as String?,
-      date: fields[13] as String?,
-      dateEpoch: fields[14] as int?,
-      forecast: (fields[15] as List?)?.cast<ForecastDay>(),
+      country: fields[1] as String?,
+      date: fields[2] as String?,
+      dateEpoch: fields[3] as int?,
+      forecast: (fields[4] as List?)?.cast<ForecastDay>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Weather obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.conditionText)
+      ..write(obj.country)
       ..writeByte(2)
-      ..write(obj.temperature)
-      ..writeByte(3)
-      ..write(obj.windDegree)
-      ..writeByte(4)
-      ..write(obj.windDir)
-      ..writeByte(5)
-      ..write(obj.windMph)
-      ..writeByte(6)
-      ..write(obj.windKph)
-      ..writeByte(7)
-      ..write(obj.humidity)
-      ..writeByte(8)
-      ..write(obj.pressureIn)
-      ..writeByte(9)
-      ..write(obj.pressureMb)
-      ..writeByte(10)
-      ..write(obj.visibilityKm)
-      ..writeByte(11)
-      ..write(obj.visibilityMiles)
-      ..writeByte(12)
-      ..write(obj.conditionIcon)
-      ..writeByte(13)
       ..write(obj.date)
-      ..writeByte(14)
+      ..writeByte(3)
       ..write(obj.dateEpoch)
-      ..writeByte(15)
+      ..writeByte(4)
       ..write(obj.forecast);
   }
 
