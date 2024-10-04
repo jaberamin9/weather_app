@@ -19,52 +19,55 @@ class ForecastHourAdapter extends TypeAdapter<ForecastHour> {
     return ForecastHour(
       timeEpoch: fields[0] as int?,
       time: fields[1] as String?,
-      temperature: fields[2] as double?,
-      conditionText: fields[3] as String?,
-      conditionIcon: fields[4] as String?,
-      windMph: fields[5] as double?,
-      windKph: fields[6] as double?,
-      windDegree: fields[7] as int?,
-      windDir: fields[8] as String?,
-      pressureMb: fields[9] as double?,
-      pressureIn: fields[10] as double?,
-      humidity: fields[11] as int?,
-      visibilityKm: fields[12] as double?,
-      visibilityMiles: fields[13] as double?,
+      tempC: fields[2] as double?,
+      tempF: fields[3] as double?,
+      conditionText: fields[4] as String?,
+      conditionIcon: fields[5] as String?,
+      windMph: fields[6] as double?,
+      windKph: fields[7] as double?,
+      windDegree: fields[8] as int?,
+      windDir: fields[9] as String?,
+      pressureMb: fields[10] as double?,
+      pressureIn: fields[11] as double?,
+      humidity: fields[12] as int?,
+      visibilityKm: fields[13] as double?,
+      visibilityMiles: fields[14] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ForecastHour obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.timeEpoch)
       ..writeByte(1)
       ..write(obj.time)
       ..writeByte(2)
-      ..write(obj.temperature)
+      ..write(obj.tempC)
       ..writeByte(3)
-      ..write(obj.conditionText)
+      ..write(obj.tempF)
       ..writeByte(4)
-      ..write(obj.conditionIcon)
+      ..write(obj.conditionText)
       ..writeByte(5)
-      ..write(obj.windMph)
+      ..write(obj.conditionIcon)
       ..writeByte(6)
-      ..write(obj.windKph)
+      ..write(obj.windMph)
       ..writeByte(7)
-      ..write(obj.windDegree)
+      ..write(obj.windKph)
       ..writeByte(8)
-      ..write(obj.windDir)
+      ..write(obj.windDegree)
       ..writeByte(9)
-      ..write(obj.pressureMb)
+      ..write(obj.windDir)
       ..writeByte(10)
-      ..write(obj.pressureIn)
+      ..write(obj.pressureMb)
       ..writeByte(11)
-      ..write(obj.humidity)
+      ..write(obj.pressureIn)
       ..writeByte(12)
-      ..write(obj.visibilityKm)
+      ..write(obj.humidity)
       ..writeByte(13)
+      ..write(obj.visibilityKm)
+      ..writeByte(14)
       ..write(obj.visibilityMiles);
   }
 

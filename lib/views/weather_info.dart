@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_app/components/horizontal_card.dart';
 import 'package:weather_app/components/vertical_card.dart';
 import 'package:weather_app/controllers/next_day_controller.dart';
+import 'package:weather_app/controllers/settings_controller.dart';
 import 'package:weather_app/utils/convert_epoch_to_date.dart';
 import '../models/weather_model.dart';
 import '../utils/current_weather_info.dart';
@@ -20,6 +21,14 @@ class WeatherInfo extends ConsumerWidget {
     final currentWeather = currentWeatherInformation?[0];
     final idx = currentWeatherInformation?[1];
     final ScrollController scrollController = ScrollController();
+    final isChecked = ref.watch(settingsProvider);
+
+    String temp;
+    if (isChecked) {
+      temp = "${currentWeather?.tempF?.toInt()?.toInt()}F";
+    } else {
+      temp = "${currentWeather?.tempC?.toInt()}°C";
+    }
 
     return Expanded(
       child: SingleChildScrollView(
@@ -76,7 +85,7 @@ class WeatherInfo extends ConsumerWidget {
                   },
                 ),
                 Text(
-                  '${currentWeather?.temperature?.toInt()}°C',
+                  temp,
                   style: const TextStyle(fontSize: 48, color: Colors.white),
                 )
               ],
@@ -140,7 +149,8 @@ class WeatherInfo extends ConsumerWidget {
                         weather: weather,
                         nextDayValue: nextDayValue,
                         index: index,
-                        idx: idx);
+                        idx: idx,
+                        isChecked: isChecked);
                   },
                 )),
             const SizedBox(height: 30),
@@ -150,7 +160,8 @@ class WeatherInfo extends ConsumerWidget {
                 tag3: 'Wind Degree',
                 value1: '${currentWeather?.windKph} kph',
                 value2: '${currentWeather?.windDir}',
-                value3: '${currentWeather?.windDegree}'),
+                value3: '${currentWeather?.windDegree}',
+                icon: 1),
             const SizedBox(height: 20),
             HorizontalCard(
                 tag1: 'Pressure',
@@ -158,7 +169,8 @@ class WeatherInfo extends ConsumerWidget {
                 tag3: 'Visibility',
                 value1: '${currentWeather?.pressureIn} ins',
                 value2: '${currentWeather?.humidity}',
-                value3: '${currentWeather?.visibilityKm} km'),
+                value3: '${currentWeather?.visibilityKm} km',
+                icon: 2),
           ],
         ),
       ),

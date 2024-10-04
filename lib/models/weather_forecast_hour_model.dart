@@ -11,45 +11,49 @@ class ForecastHour {
   final String? time;
 
   @HiveField(2)
-  final double? temperature;
+  final double? tempC;
 
   @HiveField(3)
-  final String? conditionText;
+  final double? tempF;
 
   @HiveField(4)
-  final String? conditionIcon;
+  final String? conditionText;
 
   @HiveField(5)
-  final double? windMph;
+  final String? conditionIcon;
 
   @HiveField(6)
-  final double? windKph;
+  final double? windMph;
 
   @HiveField(7)
-  final int? windDegree;
+  final double? windKph;
 
   @HiveField(8)
-  final String? windDir;
+  final int? windDegree;
 
   @HiveField(9)
-  final double? pressureMb;
+  final String? windDir;
 
   @HiveField(10)
-  final double? pressureIn;
+  final double? pressureMb;
 
   @HiveField(11)
-  final int? humidity;
+  final double? pressureIn;
 
   @HiveField(12)
-  final double? visibilityKm;
+  final int? humidity;
 
   @HiveField(13)
+  final double? visibilityKm;
+
+  @HiveField(14)
   final double? visibilityMiles;
 
   ForecastHour({
     required this.timeEpoch,
     required this.time,
-    required this.temperature,
+    required this.tempC,
+    required this.tempF,
     required this.conditionText,
     required this.conditionIcon,
     required this.windMph,
@@ -67,7 +71,8 @@ class ForecastHour {
     return ForecastHour(
       timeEpoch: json['time_epoch'],
       time: json['time'],
-      temperature: json['temp_c'],
+      tempC: json['temp_c'],
+      tempF: json['temp_f'],
       conditionText: json['condition']['text'],
       conditionIcon: json['condition']['icon'],
       windMph: json['wind_mph'],

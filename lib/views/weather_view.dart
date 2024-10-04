@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weather_app/components/settings_dialog.dart';
 import 'package:weather_app/controllers/toggle_search_box_controller.dart';
 import 'package:weather_app/views/weather_info.dart';
 import '../controllers/weather_controller.dart';
@@ -45,15 +46,30 @@ class WeatherView extends ConsumerWidget {
                   alignment: Alignment.centerRight,
                   width: double.maxFinite,
                   child: !isVisibleSearchBox
-                      ? IconButton(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          onPressed: () {
-                            ref
-                                .read(toggleSearchBoxProvider.notifier)
-                                .toggleSearchBox();
-                          },
-                          icon: const Icon(Icons.search),
-                          color: Colors.white,
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              onPressed: () {
+                                showSettingsDialog(context, ref);
+                              },
+                              icon: const Icon(Icons.settings),
+                              color: Colors.white,
+                            ),
+                            IconButton(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              onPressed: () {
+                                ref
+                                    .read(toggleSearchBoxProvider.notifier)
+                                    .toggleSearchBox();
+                              },
+                              icon: const Icon(Icons.search),
+                              color: Colors.white,
+                            )
+                          ],
                         )
                       : Container(
                           decoration: BoxDecoration(

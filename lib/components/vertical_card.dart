@@ -7,16 +7,24 @@ class VerticalCard extends StatelessWidget {
   final int nextDayValue;
   final int index;
   final int idx;
+  final bool isChecked;
 
   const VerticalCard(
       {super.key,
       required this.weather,
       required this.nextDayValue,
       required this.index,
-      required this.idx});
+      required this.idx,
+      required this.isChecked});
 
   @override
   Widget build(BuildContext context) {
+    String temp;
+    if (isChecked) {
+      temp = "${weather.forecast?[nextDayValue].hour?[index].tempF?.toInt()}F";
+    } else {
+      temp = "${weather.forecast?[nextDayValue].hour?[index].tempC?.toInt()}°C";
+    }
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -66,8 +74,7 @@ class VerticalCard extends StatelessWidget {
                             return const Text('Failed');
                           },
                         ),
-                        Text(
-                            '${weather.forecast?[nextDayValue].hour?[index].temperature?.toInt()}°',
+                        Text(temp,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
