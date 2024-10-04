@@ -1,77 +1,71 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_model.dart';
+part of 'weather_forecast_hour_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class WeatherAdapter extends TypeAdapter<Weather> {
+class ForecastHourAdapter extends TypeAdapter<ForecastHour> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  Weather read(BinaryReader reader) {
+  ForecastHour read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Weather(
-      name: fields[0] as String?,
-      conditionText: fields[1] as String?,
+    return ForecastHour(
+      timeEpoch: fields[0] as int?,
+      time: fields[1] as String?,
       temperature: fields[2] as double?,
-      windDegree: fields[3] as int?,
-      windDir: fields[4] as String?,
+      conditionText: fields[3] as String?,
+      conditionIcon: fields[4] as String?,
       windMph: fields[5] as double?,
       windKph: fields[6] as double?,
-      humidity: fields[7] as int?,
-      pressureIn: fields[8] as double?,
+      windDegree: fields[7] as int?,
+      windDir: fields[8] as String?,
       pressureMb: fields[9] as double?,
-      visibilityKm: fields[10] as double?,
-      visibilityMiles: fields[11] as double?,
-      conditionIcon: fields[12] as String?,
-      date: fields[13] as String?,
-      dateEpoch: fields[14] as int?,
-      forecast: (fields[15] as List?)?.cast<ForecastDay>(),
+      pressureIn: fields[10] as double?,
+      humidity: fields[11] as int?,
+      visibilityKm: fields[12] as double?,
+      visibilityMiles: fields[13] as double?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Weather obj) {
+  void write(BinaryWriter writer, ForecastHour obj) {
     writer
-      ..writeByte(16)
+      ..writeByte(14)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.timeEpoch)
       ..writeByte(1)
-      ..write(obj.conditionText)
+      ..write(obj.time)
       ..writeByte(2)
       ..write(obj.temperature)
       ..writeByte(3)
-      ..write(obj.windDegree)
+      ..write(obj.conditionText)
       ..writeByte(4)
-      ..write(obj.windDir)
+      ..write(obj.conditionIcon)
       ..writeByte(5)
       ..write(obj.windMph)
       ..writeByte(6)
       ..write(obj.windKph)
       ..writeByte(7)
-      ..write(obj.humidity)
+      ..write(obj.windDegree)
       ..writeByte(8)
-      ..write(obj.pressureIn)
+      ..write(obj.windDir)
       ..writeByte(9)
       ..write(obj.pressureMb)
       ..writeByte(10)
-      ..write(obj.visibilityKm)
+      ..write(obj.pressureIn)
       ..writeByte(11)
-      ..write(obj.visibilityMiles)
+      ..write(obj.humidity)
       ..writeByte(12)
-      ..write(obj.conditionIcon)
+      ..write(obj.visibilityKm)
       ..writeByte(13)
-      ..write(obj.date)
-      ..writeByte(14)
-      ..write(obj.dateEpoch)
-      ..writeByte(15)
-      ..write(obj.forecast);
+      ..write(obj.visibilityMiles);
   }
 
   @override
@@ -80,7 +74,7 @@ class WeatherAdapter extends TypeAdapter<Weather> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WeatherAdapter &&
+      other is ForecastHourAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
