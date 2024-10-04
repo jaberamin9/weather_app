@@ -31,7 +31,7 @@ void showSettingsDialog(BuildContext context, WidgetRef ref) {
                       child: Column(
                     children: [
                       CheckboxListTile(
-                          title: const Text('Fahrenheit to Celsius'),
+                          title: const Text('Convert to Fahrenheit'),
                           value: isChecked,
                           onChanged: (bool? value) {
                             ref.read(settingsProvider.notifier).toggle();
