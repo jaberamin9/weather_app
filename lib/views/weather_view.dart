@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weather_app/views/weather_info.dart';
 import '../controllers/weather_controller.dart';
-import '../models/weather_model.dart';
 
 class WeatherView extends ConsumerWidget {
   final TextEditingController searchValue = TextEditingController(text: "");
@@ -91,7 +91,7 @@ class WeatherView extends ConsumerWidget {
                     ),
                   )),
               weatherState.when(
-                data: (weather) => WeatherDisplay(weather: weather),
+                data: (weather) => WeatherInfo(weather: weather),
                 loading: () =>
                     const CircularProgressIndicator(color: Colors.white),
                 error: (err, stack) => Text('Error: $err'),
@@ -100,81 +100,6 @@ class WeatherView extends ConsumerWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class WeatherDisplay extends StatelessWidget {
-  final Weather weather;
-
-  const WeatherDisplay({super.key, required this.weather});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 30),
-        Text(
-          weather.name ?? "name",
-          style: const TextStyle(
-              fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        const SizedBox(height: 10),
-        GestureDetector(
-          onTap: () => {},
-          child:
-              const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(
-              Icons.location_on,
-              color: Colors.white,
-              size: 16,
-            ),
-            SizedBox(width: 5),
-            Text(
-              'Current Location',
-              style: TextStyle(color: Colors.white, fontSize: 14),
-            )
-          ]),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-              'https:${weather.conditionIcon}',
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent? loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace? stackTrace) {
-                return const Text('Failed');
-              },
-            ),
-            Text(
-              '${weather.temperature?.toInt()}°C',
-              style: const TextStyle(fontSize: 48, color: Colors.white),
-            )
-          ],
-        ),
-        Text(
-          '${weather.conditionText}',
-          style: const TextStyle(fontSize: 18, color: Colors.white),
-        )
-      ],
     );
   }
 }
